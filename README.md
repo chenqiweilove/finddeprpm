@@ -1,5 +1,7 @@
 # Find binary and dynamic so library dependence belongs to which RPM
 
+When we build RPM, we should configure the dependence package manually. It's easy to miss some package. So I write this tools to find the dependence package.
+
 ## Usage
 
 find all RPM deps with missing info
