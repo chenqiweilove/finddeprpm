@@ -37,8 +37,6 @@ func main() {
 		os.Exit(STATUS_ERR_OPEN_ROOT_PATH)
 	}
 
-	RPM_MAP = make(map[string]*RPM)
-
 	// go go go
 	filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
