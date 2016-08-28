@@ -7,10 +7,12 @@ import (
 )
 
 var RPM_MAP map[string]*RPM
+var MissingLD []string
 
-func FindDepRPM(path string) map[string]*RPM {
+func FindDepRPM(path string) (map[string]*RPM, []string) {
 
 	RPM_MAP = make(map[string]*RPM)
+	MissingLD = make([]string, 0)
 
 	// go go go
 	filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
@@ -25,5 +27,5 @@ func FindDepRPM(path string) map[string]*RPM {
 
 		return nil
 	})
-	return RPM_MAP
+	return RPM_MAP, MissingLD
 }

@@ -14,6 +14,11 @@ const (
 	STATUS_ERR_LDD_EXECUTE
 )
 
+const (
+	colorStart = "\033[31;5m"
+	colorEnd = "\033[0m"
+)
+
 func usage() {
 	fmt.Println("Usage:\n\t%s {DIRECTORY|FILE}\n", filepath.Base(os.Args[0]))
 	os.Exit(STATUS_ERR_PARAMS_ERROR)
@@ -36,7 +41,11 @@ func main() {
 		os.Exit(STATUS_ERR_OPEN_ROOT_PATH)
 	}
 
-	for _, rpm := range(lib.FindDepRPM(path)) {
+	rpmList, missingLDList := lib.FindDepRPM(path)
+	for _, rpm := range(rpmList) {
 		fmt.Printf("%s\t%s\n", rpm.Name, rpm.Version)
+	}
+	for _, ld := range(missingLDList) {
+		fmt.Fprintf(os.Stderr, "%s%s%s\n", colorStart, ld, colorEnd)
 	}
 }
