@@ -24,3 +24,22 @@ just find RPM deps existed without missing info
 find missing library
 
 	# finddeprpm /opt/f8n/nginx 1> /dev/null
+
+###How to reference finddeprpm as lib in other go program
+
+	...
+
+	import (
+		finddeprpm "github.com/cst05001/finddeprpm/lib"
+	)
+
+	...
+
+	func main() {
+		...
+		for _, rpm := range(lib.FindDepRPM(path)) {
+			fmt.Printf("%s\t%s\n", rpm.Name, rpm.Version)
+		}
+		...
+	}
+

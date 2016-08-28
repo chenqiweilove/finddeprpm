@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"github.com/cst05001/finddeprpm/lib"
 )
 
 const (
@@ -17,8 +18,6 @@ func usage() {
 	fmt.Println("Usage:\n\t%s {DIRECTORY|FILE}\n", filepath.Base(os.Args[0]))
 	os.Exit(STATUS_ERR_PARAMS_ERROR)
 }
-
-var RPM_MAP = make(map[string]*RPM)
 
 func main() {
 	if len(os.Args) != 2 {
@@ -37,21 +36,7 @@ func main() {
 		os.Exit(STATUS_ERR_OPEN_ROOT_PATH)
 	}
 
-	// go go go
-	filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			fmt.Println(err)
-			return err
-		}
-
-		if !info.IsDir() {
-			ldd(path)
-		}
-
-		return nil
-	})
-
-	for _, rpm := range(RPM_MAP) {
+	for _, rpm := range(lib.FindDepRPM(path)) {
 		fmt.Printf("%s\t%s\n", rpm.Name, rpm.Version)
 	}
 }
