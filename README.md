@@ -37,13 +37,13 @@ find missing library
 
 	func main() {
 		...
-	rpmList, missingLDList := lib.FindDepRPM(path)
-	for _, rpm := range(rpmList) {
-		fmt.Printf("%s\t%s\n", rpm.Name, rpm.Version)
-	}
-	for _, ld := range(missingLDList) {
-		fmt.Fprintf(os.Stderr, "%s%s%s\n", colorStart, ld, colorEnd)
-	}
+		rpmList, missingLDList := lib.FindDepRPM(path)
+		for _, rpm := range(rpmList) {
+			fmt.Printf("%s\t%s\n", rpm.Name, rpm.Version)
+		}
+		for _, ld := range(missingLDList) {
+			fmt.Fprintf(os.Stderr, "%s%s%s\n", colorStart, ld, colorEnd)
+		}
 		...
 	}
 
