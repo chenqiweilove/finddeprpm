@@ -12,6 +12,7 @@ const (
 	STATUS_ERR_PARAMS_ERROR
 	STATUS_ERR_OPEN_ROOT_PATH
 	STATUS_ERR_LDD_EXECUTE
+	STATUS_ERR_OTHER
 )
 
 const (
@@ -33,12 +34,12 @@ func main() {
 
 	_, err := os.Open(path)
 	if err != nil {
+		fmt.Println(err)
 		if os.IsNotExist(err) {
-			fmt.Println(err)
+			os.Exit(STATUS_ERR_OPEN_ROOT_PATH)
 		} else {
-			fmt.Println(err)
+			os.Exit(STATUS_ERR_OTHER)
 		}
-		os.Exit(STATUS_ERR_OPEN_ROOT_PATH)
 	}
 
 	rpmList, missingLDList := lib.FindDepRPM(path)
